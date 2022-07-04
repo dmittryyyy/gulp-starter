@@ -1,9 +1,13 @@
-const { watch, series, parallel } = require("gulp");
-const browserSync = require('browser-sync').create();
+global.$ = {
+    //package
+    gulp: require("gulp"),
+    gp: require("gulp-load-plugins")(),
+    browserSync:  require('browser-sync').create(),
 
-//config
-const path = require('./config/path');
-const app = require('./config/app');
+    //config
+    path:  require('./config/path'),
+    app:  require('./config/app'),
+}
 
 //tasks require
 const clear = require('./tasks/clear');
@@ -12,36 +16,28 @@ const scss = require('./tasks/scss');
 const js = require('./tasks/js');
 const img = require('./tasks/img');
 const font = require('./tasks/font');
-
-//server
-const server = () => {
-    browserSync.init({
-        server: {
-            baseDir: path.root
-        }
-    })
-}
+const server = require('./tasks/server');
 
 //observer
 const watcher = () => {
-    watch(path.pug.watch, pug).on('all', browserSync.reload);
-    watch(path.scss.watch, scss).on('all', browserSync.reload);
-    watch(path.js.watch, js).on('all', browserSync.reload);
-    watch(path.img.watch, img).on('all', browserSync.reload);
-    watch(path.font.watch, font).on('all', browserSync.reload);
+    $.gulp.watch($.path.pug.watch, pug).on('all', $.browserSync.reload);
+    $.gulp.watch($.path.scss.watch, scss).on('all', $.browserSync.reload);
+    $.gulp.watch($.path.js.watch, js).on('all', $.browserSync.reload);
+    $.gulp.watch($.path.img.watch, img).on('all', $.browserSync.reload);
+    $.gulp.watch($.path.font.watch, font).on('all', $.browserSync.reload);
 }
 
 //prod
-const build = series(
+const build = $.gulp.series(
     clear,
-    parallel(pug, scss, js, img, font)
+    $.gulp.parallel(pug, scss, js, img, font)
 );
 
 //develop
-const dev = series(
+const dev = $.gulp.series(
     build,
-    parallel(watcher, server)
-)
+    $.gulp.parallel(watcher, server)
+);
 
 //tasks
 exports.pug = pug;
@@ -51,6 +47,6 @@ exports.img = img;
 exports.font = font;
 
 //build
-exports.default = app.isProd
+exports.default = $.app.isProd
     ? build
     : dev;

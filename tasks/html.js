@@ -13,23 +13,23 @@ const plumber = require("gulp-plumber");
 const webpHtml = require("gulp-webp-html");
 
 const html = () => {
-    return src(path.html.src)
-    .pipe(plumber( {
-        errorHandler: notify.onError(error => ({
+    return $.gulp.src($.path.html.src)
+    .pipe($.gp.plumber( {
+        errorHandler: $.gp.notify.onError(error => ({
             title: 'HTML',
             message: error.message
         }))
     }))
-    .pipe(fileInclude())
-    .pipe(webpHtml())
-    .pipe(size({
+    .pipe($.gp.fileInclude())
+    .pipe($.gp.webpHtml())
+    .pipe($.gp.size({
         title: "До сжатия"
     }))
-    .pipe(htmlmin(app.htmlmin))
-    .pipe(size({
+    .pipe($.gp.htmlmin($.app.htmlmin))
+    .pipe($.gp.size({
         title: "После сжатия"
     }))
-    .pipe(dest(path.html.dest))
+    .pipe($.gulp.dest($.path.html.dest))
 }
 
 module.exports = html;
