@@ -1,4 +1,5 @@
 const webpackStream = require("webpack-stream");
+let uglify = require('gulp-uglify-es').default;
 
 const js = () => {
     return $.gulp.src($.path.js.src, { sourcemaps: $.app.isDev })
@@ -10,7 +11,8 @@ const js = () => {
     }))
     .pipe($.gp.babel())
     .pipe(webpackStream($.app.webpack))
-    .pipe($.gp.uglify())
+    .pipe($.gp.concat('main.js'))
+    .pipe(uglify())
     .pipe($.gulp.dest($.path.js.dest, { sourcemaps: $.app.isDev }))
 }
 
