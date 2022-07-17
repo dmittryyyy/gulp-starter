@@ -17,6 +17,7 @@ const js = require('./tasks/js');
 const img = require('./tasks/img');
 const font = require('./tasks/font');
 const server = require('./tasks/server');
+const deploy = require('./tasks/deploy');
 
 //observer
 const watcher = () => {
@@ -45,6 +46,7 @@ exports.scss = scss;
 exports.js = js;
 exports.img = img;
 exports.font = font;
+exports.deploy = deploy;
 
 //build
 exports.default = $.app.isProd

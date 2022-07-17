@@ -2,7 +2,6 @@
 const groupMedaiQueries = require("gulp-group-css-media-queries");
 const sass = require("gulp-sass")(require("sass"));
 
-
 const scss = () => {
     return $.gulp.src($.path.scss.src, { sourcemaps: $.app.isDev })
     .pipe($.gp.plumber( {
