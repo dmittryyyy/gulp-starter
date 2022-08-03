@@ -3,6 +3,7 @@ const pathDest = './public';
 
 module.exports = {
     root: pathDest,
+    deploy: pathDest,
 
     html: {
         src: pathSrc + '/html/*.html',

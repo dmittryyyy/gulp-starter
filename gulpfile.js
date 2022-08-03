@@ -11,7 +11,7 @@ global.$ = {
 
 //tasks require
 const clear = require('./tasks/clear');
-const pug = require('./tasks/pug');
+const html = require('./tasks/html');
 const scss = require('./tasks/scss');
 const js = require('./tasks/js');
 const img = require('./tasks/img');
@@ -21,7 +21,7 @@ const deploy = require('./tasks/deploy');
 
 //observer
 const watcher = () => {
-    $.gulp.watch($.path.pug.watch, pug).on('all', $.browserSync.reload);
+    $.gulp.watch($.path.html.watch, html).on('all', $.browserSync.reload);
     $.gulp.watch($.path.scss.watch, scss).on('all', $.browserSync.reload);
     $.gulp.watch($.path.js.watch, js).on('all', $.browserSync.reload);
     $.gulp.watch($.path.img.watch, img).on('all', $.browserSync.reload);
@@ -31,7 +31,7 @@ const watcher = () => {
 //prod
 const build = $.gulp.series(
     clear,
-    $.gulp.parallel(pug, scss, js, img, font)
+    $.gulp.parallel(html, scss, js, img, font)
 );
 
 //develop
@@ -41,7 +41,7 @@ const dev = $.gulp.series(
 );
 
 //tasks
-exports.pug = pug;
+exports.html = html;
 exports.scss = scss;
 exports.js = js;
 exports.img = img;
